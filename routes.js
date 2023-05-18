@@ -4,6 +4,7 @@ const requestHandler = (req, res) =>{
     const url = req.url;
     const method = req.method;
 
+    
     if(url === '/') {
         //Reading from file
         fs.readFile('message.txt', (err, data) => {
