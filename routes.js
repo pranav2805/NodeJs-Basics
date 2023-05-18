@@ -4,7 +4,6 @@ const requestHandler = (req, res) =>{
     const url = req.url;
     const method = req.method;
 
-    
     if(url === '/') {
         //Reading from file
         fs.readFile('message.txt', (err, data) => {
@@ -37,11 +36,12 @@ const requestHandler = (req, res) =>{
             console.log(parsedBody);
             const message = parsedBody.split('=')[1];
             console.log(message);
-            fs.writeFileSync('message.txt', message);
+            fs.writeFile('message.txt', message, err => {
+                res.statusCode = 302;
+                res.setHeader('Location', '/');
+                return res.end();
+            });
         });
-        res.statusCode = 302;
-        res.setHeader('Location', '/');
-        return res.end();
     }
     
     //homepage
